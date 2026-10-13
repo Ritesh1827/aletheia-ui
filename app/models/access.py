@@ -1,4 +1,4 @@
-"""Pydantic models for Access Control (M4, demo session)."""
+"""Pydantic models for Access Control (demo session)."""
 
 from __future__ import annotations
 

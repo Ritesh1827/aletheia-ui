@@ -1,4 +1,4 @@
-"""Service seam for M1–M2 (mock-only; real backend plugs in later)."""
+"""Service seam (mock-only; real backend plugs in later)."""
 
 from __future__ import annotations
 

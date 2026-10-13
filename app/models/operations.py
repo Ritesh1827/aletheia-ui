@@ -1,4 +1,4 @@
-"""Pydantic models for Control Tower and Incident Investigation (M2)."""
+"""Pydantic models for Control Tower and Incident Investigation."""
 
 from __future__ import annotations
 

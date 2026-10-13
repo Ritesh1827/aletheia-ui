@@ -1,4 +1,4 @@
-"""Mock operations service (M2): overview + incidents. Demo fixtures only."""
+"""Mock operations service: overview + incidents. Demo fixtures only."""
 
 from __future__ import annotations
 

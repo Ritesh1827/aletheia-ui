@@ -1,4 +1,4 @@
-"""Tests for the Provenance Block Explorer (M3)."""
+"""Tests for the Provenance Block Explorer."""
 
 from __future__ import annotations
 

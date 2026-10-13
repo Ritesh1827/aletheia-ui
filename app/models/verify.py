@@ -1,4 +1,4 @@
-"""Pydantic models for Milestone 1 (Product Verify only)."""
+"""Pydantic models for Product Verify."""
 
 from __future__ import annotations
 

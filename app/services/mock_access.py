@@ -1,4 +1,4 @@
-"""Mock access service (M4). Demo session roles, permissions, and audit.
+"""Mock access service. Demo session roles, permissions, and audit.
 
 There is no production authentication here. The "session" is a demo role
 selected via query parameter (`?as=`) or cookie (`al_role`), defaulting to

@@ -1,6 +1,6 @@
-"""Regression tests: all five core routes render through real templates + services.
+"""Regression tests: all core routes render through real templates + services.
 
-Guards the M2 regression report: Verify/Incidents failing to load after the
+Guards the early regression report: Verify/Incidents failing to load after the
 Control Tower milestone. Every test below renders the actual Jinja template
 against the real mock service — no bypasses.
 """

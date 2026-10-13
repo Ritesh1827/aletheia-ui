@@ -1,4 +1,4 @@
-"""Mock explorer service (M3). Fixtures stay consistent with Verify + Tower mocks."""
+"""Mock explorer service. Fixtures stay consistent with Verify + Tower mocks."""
 
 from __future__ import annotations
 

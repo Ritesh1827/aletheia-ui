@@ -1,4 +1,4 @@
-"""Red-Team Lab routes (M4). Demo-gated scenario console; static paths first."""
+"""Red-Team Lab routes. Demo-gated scenario console; static paths first."""
 
 from __future__ import annotations
 
