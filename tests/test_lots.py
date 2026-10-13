@@ -86,7 +86,7 @@ def test_blast_radius_unknown_state(client: TestClient) -> None:
 
 
 def test_freeze_confirms_and_updates_state(client: TestClient) -> None:
-    res = client.post("/lots/LOT-DEMO-A/freeze",
+    res = client.post("/lots/LOT-DEMO-A/freeze?as=operator",
                       data={"confirm": "LOT-DEMO-A", "reason": "test hold"},
                       follow_redirects=True)
     assert res.status_code == 200
@@ -95,7 +95,7 @@ def test_freeze_confirms_and_updates_state(client: TestClient) -> None:
 
 
 def test_freeze_wrong_confirmation_rejected(client: TestClient) -> None:
-    res = client.post("/lots/LOT-DEMO-A/freeze",
+    res = client.post("/lots/LOT-DEMO-A/freeze?as=operator",
                       data={"confirm": "WRONG-ID", "reason": "x"})
     assert res.status_code == 422
     assert "no action taken" in res.text.lower()
@@ -103,8 +103,8 @@ def test_freeze_wrong_confirmation_rejected(client: TestClient) -> None:
 
 
 def test_freeze_is_idempotent(client: TestClient) -> None:
-    client.post("/lots/LOT-DEMO-A/freeze", data={"confirm": "LOT-DEMO-A"})
-    res = client.post("/lots/LOT-DEMO-A/freeze", data={"confirm": "LOT-DEMO-A"},
+    client.post("/lots/LOT-DEMO-A/freeze?as=operator", data={"confirm": "LOT-DEMO-A"})
+    res = client.post("/lots/LOT-DEMO-A/freeze?as=operator", data={"confirm": "LOT-DEMO-A"},
                       follow_redirects=False)
     assert res.status_code == 303
     detail = mock_lots.get_lot("LOT-DEMO-A")
@@ -113,7 +113,7 @@ def test_freeze_is_idempotent(client: TestClient) -> None:
 
 
 def test_recall_freezes_and_audits(client: TestClient) -> None:
-    res = client.post("/lots/LOT-DEMO-B/recall",
+    res = client.post("/lots/LOT-DEMO-B/recall?as=operator",
                       data={"confirm": "LOT-DEMO-B", "reason": "test recall"},
                       follow_redirects=True)
     assert res.status_code == 200
@@ -125,7 +125,7 @@ def test_recall_freezes_and_audits(client: TestClient) -> None:
 
 
 def test_audit_json_labelled_demo(client: TestClient) -> None:
-    client.post("/lots/LOT-DEMO-A/freeze", data={"confirm": "LOT-DEMO-A"})
+    client.post("/lots/LOT-DEMO-A/freeze?as=operator", data={"confirm": "LOT-DEMO-A"})
     res = client.get("/lots/LOT-DEMO-A/audit")
     assert res.status_code == 200
     assert res.json()["lot_id"] == "LOT-DEMO-A"

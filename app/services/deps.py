@@ -102,16 +102,16 @@ def get_blast_radius(lot_id: str) -> BlastRadius:
     return chain_api.get_blast_radius(lot_id)
 
 
-def freeze_lot(lot_id: str, reason: str = "") -> LotAuditEntry:
+def freeze_lot(lot_id: str, reason: str = "", role: str = "verifier") -> LotAuditEntry:
     if config.is_demo() or lot_id.strip().upper() in chain_api._DEMO_LOT_IDS:
         return mock_lots.freeze_lot(lot_id, reason)
-    return chain_api.freeze_lot(lot_id, reason)
+    return chain_api.freeze_lot(lot_id, reason, role)
 
 
-def recall_lot(lot_id: str, reason: str = "") -> LotAuditEntry:
+def recall_lot(lot_id: str, reason: str = "", role: str = "verifier") -> LotAuditEntry:
     if config.is_demo() or lot_id.strip().upper() in chain_api._DEMO_LOT_IDS:
         return mock_lots.recall_lot(lot_id, reason)
-    return chain_api.recall_lot(lot_id, reason)
+    return chain_api.recall_lot(lot_id, reason, role)
 
 
 def access_overview(role_id: str | None) -> AccessOverview:

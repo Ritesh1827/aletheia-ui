@@ -138,7 +138,7 @@ def test_f5_form_caps(client: TestClient, clean_mock_lots: object) -> None:
     _ = clean_mock_lots
     big = "R" * 2000
     r = client.post(
-        "/lots/LOT-DEMO-B/freeze",
+        "/lots/LOT-DEMO-B/freeze?as=operator",
         data={"reason": big, "confirm": "LOT-DEMO-B"},
         follow_redirects=False,
     )

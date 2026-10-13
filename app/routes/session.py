@@ -7,8 +7,8 @@ backend and renders a 403 page on denial — UI hiding is never the boundary.
 
 from __future__ import annotations
 
-from fastapi import Request
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Query, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from app import config
@@ -72,3 +72,18 @@ def guard(
         )
     deps.access_record_allowed(role_id, permission, target)
     return None
+
+
+router = APIRouter()
+
+
+@router.post("/session/role", include_in_schema=False)
+async def switch_role(request: Request) -> Response:
+    form = await request.form()
+    role = str(form.get("role", "verifier"))[:32]
+    nxt = str(form.get("next", request.headers.get("referer", "/")))[:256]
+    role_id = deps.access_role_id(role)
+    dest = nxt if nxt.startswith("/") else "/"
+    resp = RedirectResponse(url=dest, status_code=303)
+    resp.set_cookie(SESSION_COOKIE, role_id, httponly=True, samesite="lax")
+    return resp
