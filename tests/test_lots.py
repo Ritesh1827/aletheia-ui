@@ -1,4 +1,4 @@
-"""Tests for Lots & Recall (M5)."""
+"""Tests for Lots & Recall."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Scan payload parsing (scanner milestone). Pure, deterministic, tested.
+"""Scan payload parsing. Pure, deterministic, tested.
 
 Rules:
 - Plain supported serials (AL-XXX-0000 shape) pass through directly.

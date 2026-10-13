@@ -1,4 +1,4 @@
-"""Pydantic models for Lots & Recall (M5)."""
+"""Pydantic models for Lots & Recall."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""FastAPI application factory (M5: + Lots & Recall)."""
+"""FastAPI application factory: all routers + static assets."""
 
 from __future__ import annotations
 

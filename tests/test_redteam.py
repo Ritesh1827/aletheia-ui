@@ -1,4 +1,4 @@
-"""Tests for the Red-Team Lab (M4)."""
+"""Tests for the Red-Team Lab."""
 
 from __future__ import annotations
 

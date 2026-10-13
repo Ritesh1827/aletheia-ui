@@ -29,18 +29,15 @@ Try: `AL-DEMO-0001` (VERIFIED) · `AL-DEMO-0002` (CLONE_DETECTED) · `AL-DEMO-UN
 ```bash
 uv run ruff check .     # lint
 uv run mypy app         # strict type-check (30 files)
-uv run pytest -q        # 120 tests
+uv run pytest -q        # 123 tests
 ```
 
 ## Configuration
 
 | Variable | Default | Effect |
 |---|---|---|
-| `TRUSTTRACE_API_MODE` | `mock` | Non-`mock` disables demo gates (red-team becomes 403) |
-| `TRUSTTRACE_CHAIN_LABEL` | `local demo network` | Chain label in UI |
-
-> Historical note: env names keep the pre-rename `TRUSTTRACE_` prefix for compatibility; the
-> product brand is Aletheia (`AL-DEMO-*` serials, `al_role` cookie, `Aletheia · Oxide Observatory`).
+| `ALETHEIA_API_MODE` | `mock` | Non-`mock` disables demo gates (red-team becomes 403) |
+| `ALETHEIA_CHAIN_LABEL` | `local demo network` | Chain label in UI |
 
 ## Architecture
 
@@ -107,14 +104,14 @@ Demo roles: `?as=verifier|operator|investigator|admin` (unknown → verifier; co
 ## Frontend & mobile
 
 - `templates/layouts/base.html`: sidebar, topbar (global serial search, session chip → `/access`),
-  mobile drawer + 6-tab bar (Verify·Tower·Lots·Cases·Explore·Lab), toasts, `?v=N` asset cache-busting.
+  mobile drawer + 6-tab bar (Verify·Tower·Lots·Cases·Explore·Lab), toasts, `?v=5` asset cache-busting
+  (bump the number whenever CSS/JS changes so browsers never run stale bundles).
 - `static/css/`: `tokens` (palette/type) → `base` (shell) → `components` → `mobile.css`
   (≤900px: drawer, table→card reflow via JS-injected `data-label`, snap-rail checks, 44px targets).
 - `static/js/`: `app.js` (copy/toast), `mobile.js` (drawer/search/tabs/cards/share, Alpine-aware),
   `scanner.js` + `verify_scan.js` (on-device camera QR/barcode → serial, `html5-qrcode` vendored).
-- Hamburger is mobile-only; sidebar pinned on desktop. Hamburger visibility rules share one
-  selector across breakpoints (specificity-tied) after a real bug where `components.css` leaked it
-  onto desktop.
+- Hamburger is mobile-only (sidebar pinned on desktop); the show/hide rules share one
+  selector across breakpoints so visibility is decided by width alone.
 
 ## Project structure
 

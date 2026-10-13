@@ -1,4 +1,4 @@
-"""Pydantic models for Audit & Integrity (M4)."""
+"""Pydantic models for Audit & Integrity."""
 
 from __future__ import annotations
 

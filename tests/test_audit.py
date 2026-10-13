@@ -1,4 +1,4 @@
-"""Tests for Audit & Integrity (M4): recording, verification, tamper detection."""
+"""Tests for Audit & Integrity: recording, verification, tamper detection."""
 
 from __future__ import annotations
 

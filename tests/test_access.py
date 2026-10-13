@@ -1,4 +1,4 @@
-"""Tests for Access Control (M4): matrix, guards, demo session, spoof resistance."""
+"""Tests for Access Control: matrix, guards, demo session, spoof resistance."""
 
 from __future__ import annotations
 

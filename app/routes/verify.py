@@ -1,4 +1,4 @@
-"""Verify routes (M1): search + verdict detail."""
+"""Verify routes: search + verdict detail."""
 
 from __future__ import annotations
 
