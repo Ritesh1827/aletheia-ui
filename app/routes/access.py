@@ -1,4 +1,4 @@
-"""Access Control routes (M4): permission matrix, demo session roles, access audit."""
+"""Access Control routes: permission matrix, demo session roles, access audit."""
 
 from __future__ import annotations
 

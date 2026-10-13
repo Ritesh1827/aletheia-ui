@@ -1,4 +1,4 @@
-"""Red-Team scenario service (M4). Deterministic demo rules, honestly evaluated.
+"""Red-Team scenario service. Deterministic demo rules, honestly evaluated.
 
 Each scenario runs real logic against its inputs — velocity math, registry
 lookup, transition checks, proof recomputation, claim comparison, lifecycle

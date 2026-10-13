@@ -1,4 +1,4 @@
-"""Overview + incident routes (M2). Reuses Verify shell and components."""
+"""Overview + incident routes. Reuses Verify shell and components."""
 
 from __future__ import annotations
 

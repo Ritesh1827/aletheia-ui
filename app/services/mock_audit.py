@@ -1,4 +1,4 @@
-"""Mock audit service (M4): hash-chained audit log + integrity verification.
+"""Mock audit service: hash-chained audit log + integrity verification.
 
 Every privileged action appends an event; each record commits to the hash of
 the previous one, so altered records or broken links are detectable by

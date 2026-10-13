@@ -1,4 +1,4 @@
-"""Mock lots service (M5). Deterministic demo inventory, blast radius, freeze/recall.
+"""Mock lots service. Deterministic demo inventory, blast radius, freeze/recall.
 
 State (frozen / recalled / audit) lives in module-level demo stores so the
 workflow can be exercised end to end. Nothing here touches real inventory,

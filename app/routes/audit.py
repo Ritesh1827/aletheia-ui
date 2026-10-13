@@ -1,4 +1,4 @@
-"""Audit & Integrity routes (M4): hash-chained audit log + verification."""
+"""Audit & Integrity routes: hash-chained audit log + verification."""
 
 from __future__ import annotations
 

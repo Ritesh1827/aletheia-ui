@@ -1,4 +1,4 @@
-"""Provenance Block Explorer routes (M3). Static paths before param paths."""
+"""Provenance Block Explorer routes. Static paths before param paths."""
 
 from __future__ import annotations
 

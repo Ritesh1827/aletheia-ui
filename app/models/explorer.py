@@ -1,4 +1,4 @@
-"""Pydantic models for the Provenance Block Explorer (M3)."""
+"""Pydantic models for the Provenance Block Explorer."""
 
 from __future__ import annotations
 

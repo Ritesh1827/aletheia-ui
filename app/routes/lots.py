@@ -1,4 +1,4 @@
-"""Lots & Recall routes (M5). Static paths before param paths."""
+"""Lots & Recall routes. Static paths before param paths."""
 
 from __future__ import annotations
 

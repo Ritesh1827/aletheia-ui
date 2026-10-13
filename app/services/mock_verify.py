@@ -1,4 +1,4 @@
-"""Mock verification service (M1 only). All data labelled DEMO DATA in UI."""
+"""Mock verification service. All data labelled DEMO DATA in UI."""
 
 from __future__ import annotations
 
