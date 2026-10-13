@@ -9,6 +9,7 @@ from pydantic import BaseModel
 
 from app import config
 from app.models.verify import VERDICT_CAVEAT
+from app.routes import session as sess
 from app.services import deps
 from app.services.mock_lots import LotsBackendError, UnknownLotError
 
@@ -90,6 +91,16 @@ def lot_blast_radius(request: Request, lot_id: str) -> HTMLResponse:
 
 @router.post("/lots/{lot_id}/freeze", include_in_schema=False)
 async def lot_freeze(request: Request, lot_id: str) -> Response:
+    role = sess.current_role(request)
+    if role != 'operator':
+        return templates.TemplateResponse(
+            request,
+            'pages/lot_detail.html',
+            {**shell('lots'), 'lot': deps.get_lot(lot_id), 'blast': None,
+             'caveat': VERDICT_CAVEAT, 'can_act': False,
+             'form_error': 'Operator role required — switch role to act.'},
+            status_code=403,
+        )
     form = await request.form()
     reason = str(form.get("reason", ""))[:500]
     confirmed = str(form.get("confirm", ""))[:128]
@@ -103,7 +114,7 @@ async def lot_freeze(request: Request, lot_id: str) -> Response:
             status_code=422,
         )
     try:
-        entry = deps.freeze_lot(lot_id, reason)
+        entry = deps.freeze_lot(lot_id, reason, role)
     except UnknownLotError:
         return templates.TemplateResponse(
             request,
@@ -119,6 +130,16 @@ async def lot_freeze(request: Request, lot_id: str) -> Response:
 
 @router.post("/lots/{lot_id}/recall", include_in_schema=False)
 async def lot_recall(request: Request, lot_id: str) -> Response:
+    role = sess.current_role(request)
+    if role != 'operator':
+        return templates.TemplateResponse(
+            request,
+            'pages/lot_detail.html',
+            {**shell('lots'), 'lot': deps.get_lot(lot_id), 'blast': None,
+             'caveat': VERDICT_CAVEAT, 'can_act': False,
+             'form_error': 'Operator role required — switch role to act.'},
+            status_code=403,
+        )
     form = await request.form()
     reason = str(form.get("reason", ""))[:500]
     confirmed = str(form.get("confirm", ""))[:128]
@@ -132,7 +153,7 @@ async def lot_recall(request: Request, lot_id: str) -> Response:
             status_code=422,
         )
     try:
-        entry = deps.recall_lot(lot_id, reason)
+        entry = deps.recall_lot(lot_id, reason, role)
     except UnknownLotError:
         return templates.TemplateResponse(
             request,
@@ -176,11 +197,13 @@ def lot_detail(
         flash = LotsNotice(kind="info", text="Freeze confirmed by the demo service — outbound transfer held (demo operation).")
     elif notice == "recalled":
         flash = LotsNotice(kind="info", text="Recall confirmed by the demo service — pull-stock queued and lot frozen (demo operation).")
+    role = sess.current_role(request)
     return templates.TemplateResponse(
         request,
         "pages/lot_detail.html",
         {**shell("lots"), "lot": detail, "flash": flash,
-         "caveat": VERDICT_CAVEAT, "form_error": ""},
+         "caveat": VERDICT_CAVEAT, "form_error": "",
+         "can_act": role == "operator", "role": role},
     )
 
 

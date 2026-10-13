@@ -117,6 +117,7 @@
     </div>
     <div class="panel" x-data="{ confirmFreeze: false, confirmRecall: false }">
       <h3>Freeze &amp; recall</h3>
+      {% if can_act %}
       <p class="hint">Demo operations only. State changes after the service confirms; repeats are idempotent.</p>
       <form action="/lots/{{ lot.lot_id }}/freeze" method="post" x-show="!confirmFreeze">
         <div class="action-row">
@@ -162,6 +163,9 @@
           <button class="btn ghost" type="button" @click="confirmRecall = false">Cancel</button>
         </div>
       </form>
+      {% else %}
+      <p class="hint" style="margin:0">Read-only role — switch to Operator to freeze or recall. State-changing calls are role-gated on the backend too.</p>
+      {% endif %}
     </div>
   </aside>
 </div>

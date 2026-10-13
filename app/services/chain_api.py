@@ -307,13 +307,13 @@ def get_blast_radius(lot_id: str) -> BlastRadius:
     )
 
 
-def _recall_entry(lot_id: str, action: str, reason: str) -> LotAuditEntry:
+def _recall_entry(lot_id: str, action: str, reason: str, role: str = "verifier") -> LotAuditEntry:
     key = lot_id.strip()
     if not key or len(key) > 128:
         raise UnknownLotError(lot_id=key[:128])
     base = config.chain_api_base().rstrip("/")
     try:
-        r = httpx.post(f"{base}/lots/{key}/recall", timeout=20.0)
+        r = httpx.post(f"{base}/lots/{key}/recall", headers={"X-Role": role}, timeout=20.0)
     except Exception as exc:
         raise LotsBackendError(correlation_id="chain-unreachable") from exc
     if r.status_code == 404:
@@ -326,10 +326,10 @@ def _recall_entry(lot_id: str, action: str, reason: str) -> LotAuditEntry:
                          reason=reason[:500])
 
 
-def freeze_lot(lot_id: str, reason: str = "") -> LotAuditEntry:
+def freeze_lot(lot_id: str, reason: str = "", role: str = "verifier") -> LotAuditEntry:
     # Backend recall freezes on-chain; freeze shares the effect (transfer hold).
-    return _recall_entry(lot_id, "freeze", reason)
+    return _recall_entry(lot_id, "freeze", reason, role)
 
 
-def recall_lot(lot_id: str, reason: str = "") -> LotAuditEntry:
-    return _recall_entry(lot_id, "recall", reason)
+def recall_lot(lot_id: str, reason: str = "", role: str = "verifier") -> LotAuditEntry:
+    return _recall_entry(lot_id, "recall", reason, role)
