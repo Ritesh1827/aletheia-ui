@@ -99,12 +99,29 @@
         <button class="btn secondary" type="submit">Go</button>
       </form>
       <div class="topbar-right">
+        <form action="/session/role" method="post" style="display:inline-flex;gap:6px;align-items:center" id="role-form">
+          <label class="hint" for="role-select" style="margin:0">Role</label>
+          <select name="role" id="role-select" onchange="document.getElementById('role-form').submit()">
+            <option value="verifier">Verifier</option>
+            <option value="operator">Operator</option>
+            <option value="investigator">Investigator</option>
+          </select>
+        </form>
         <a class="session-chip" href="/access" title="Demo session — {{ user_name | default('Demo Verifier') }} · switch role in Access Control">
           <span class="live-dot" aria-hidden="true"></span>
           <span>{{ role_name | default('Read-only Verifier') }} · demo</span>
         </a>
       </div>
     </header>
+    <script>
+      (function () {
+        try {
+          var m = document.cookie.match(/(?:^|; )tt_role=([^;]*)/);
+          var sel = document.getElementById('role-select');
+          if (m && sel) sel.value = decodeURIComponent(m[1]);
+        } catch (e) {}
+      })();
+    </script>
 
     {% if demo %}
     <div class="demo-banner" role="note">

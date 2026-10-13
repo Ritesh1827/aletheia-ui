@@ -63,8 +63,9 @@ def chain_client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
         path = url.split("http://test")[1]
         return routes.get(path, FakeResp(404))
 
-    def fake_post(url: str, timeout: float = 20.0) -> FakeResp:
+    def fake_post(url: str, headers: dict | None = None, timeout: float = 20.0) -> FakeResp:
         assert url.endswith("/lots/SHOW/recall")
+        assert (headers or {}).get("X-Role") == "operator", headers
         return FakeResp(200, {"lot": "SHOW", "frozen": True})
 
     monkeypatch.setenv("TRUSTTRACE_API_MODE", "chain")
@@ -97,7 +98,7 @@ def test_chain_lot_unknown(chain_client: TestClient) -> None:
 
 
 def test_chain_recall(chain_client: TestClient) -> None:
-    r = chain_client.post("/lots/SHOW/recall",
+    r = chain_client.post("/lots/SHOW/recall?as=operator",
                           data={"reason": "demo", "confirm": "SHOW"},
                           follow_redirects=False)
     assert r.status_code == 303, r.status_code
